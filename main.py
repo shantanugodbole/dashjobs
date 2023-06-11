@@ -11,7 +11,7 @@ import math
 import requests
 import os
 from notion_client import Client
-import connectSupabase from supabase
+from supabase import connectSupabase
 
 notion = Client(auth = os.environ["CLIENT_SECRET"])
 

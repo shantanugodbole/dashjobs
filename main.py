@@ -11,8 +11,11 @@ import math
 import requests
 import os
 from notion_client import Client
+import connectSupabase from supabase
 
 notion = Client(auth = os.environ["CLIENT_SECRET"])
+
+supabaseConnection = connectSupabase()
 
 target_url='https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=sde%20intern&geoId=103644278&start={}'
 l =[]
@@ -48,49 +51,56 @@ for i in range(0, len(l)):
 
 len(job_company)
 
-for i in range(0, len(job_company)):
-  notion.pages.create(
-    **{
-        "parent":{
-            "database_id": os.environ["DATABASE_ID"]
-        },
-       "properties":{
-          "Company":{
-              "title": [{
-                  "text":{
-                      "content": job_company[i]
-                  }
-              }]
-          },
-          "Job Location":{
-              "rich_text": [{
-                  "text":{
-                      "content": job_location[i]
-                  }
-              }]
-          },
-          "Job Description":{
-              "rich_text": [{
-                  "text":{
-                      "content": job_description[i]
-                  }
-              }]
-          },
-          "Posting Date":{
-              "rich_text": [{
-                  "text":{
-                      "content": job_posting_date[i]
-                  }
-              }]
-          },
-          "Application Link":{
-              "rich_text": [{
-                  "text":{
-                      "content": job_app_link[i]
-                  }
-              }]
-          }
-       }
-    }
-)
+# for i in range(0, len(job_company)):  # Writing to notion Database - no primary keys
+#   notion.pages.create(
+#     **{
+#         "parent":{
+#             "database_id": os.environ["DATABASE_ID"]
+#         },
+#        "properties":{
+#           "Company":{
+#               "title": [{
+#                   "text":{
+#                       "content": job_company[i]
+#                   }
+#               }]
+#           },
+#           "Job Location":{
+#               "rich_text": [{
+#                   "text":{
+#                       "content": job_location[i]
+#                   }
+#               }]
+#           },
+#           "Job Description":{
+#               "rich_text": [{
+#                   "text":{
+#                       "content": job_description[i]
+#                   }
+#               }]
+#           },
+#           "Posting Date":{
+#               "rich_text": [{
+#                   "text":{
+#                       "content": job_posting_date[i]
+#                   }
+#               }]
+#           },
+#           "Application Link":{
+#               "rich_text": [{
+#                   "text":{
+#                       "content": job_app_link[i]
+#                   }
+#               }]
+#           }
+#        }
+#     }
+# )
+
+
+
+for i in range(0, len(job_company)):  # Writing to supabase table - POSTGRES. Primary key = Company + Job Location + Link
+    data, count = Client.table('JobListings')
+    .insert({"Company": job_company[i], "Job Location": job_location[i], "Job Description":ob_description[i], 
+    "Posting Date": job_posting_date[i], "Application Link": job_app_link[i]}).execute()
 

@@ -1,3 +1,4 @@
 beautifulsoup4==4.11.2 
 notion-client==2.0.0 
-requests==2.27.1 
+requests==2.27.1
+supabase==1.0.3

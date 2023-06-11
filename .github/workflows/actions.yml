@@ -1,6 +1,9 @@
 name: run main.py
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 0 * * 2,5' # Every Tuesday and Friday
 

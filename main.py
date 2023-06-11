@@ -10,12 +10,16 @@ from bs4 import BeautifulSoup
 import math
 import requests
 import os
-from notion_client import Client
-from database import connectSupabase
+# from notion_client import Client
+from supabase import create_client, Client
 
-notion = Client(auth = os.environ["CLIENT_SECRET"])
+# notion = Client(auth = os.environ["CLIENT_SECRET"])
 
-supabaseConnection = connectSupabase()
+# supabaseConnection = connectSupabase()
+url = os.environ["SUPABASE_URL"]
+key = os.environ["SUPABASE_ID"]
+Client = create_client(url, key)
+
 
 target_url='https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=sde%20intern&geoId=103644278&start={}'
 l =[]

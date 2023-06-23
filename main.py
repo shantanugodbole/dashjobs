@@ -10,10 +10,11 @@ from bs4 import BeautifulSoup
 import math
 import requests
 import os
-# from notion_client import Client
-from supabase import create_client, Client
 
-# notion = Client(auth = os.environ["CLIENT_SECRET"])
+from supabase import create_client, Client
+from notionUtil import writeToNotion
+
+
 
 # supabaseConnection = connectSupabase()
 url = os.environ["SUPABASE_URL"]
@@ -53,56 +54,9 @@ for i in range(0, len(l)):
   link = l[i].find("a" ,{"class":"base-card__full-link"})["href"]
   job_app_link.append(link)
 
-len(job_company)
-
-# for i in range(0, len(job_company)):  # Writing to notion Database - no primary keys
-#   notion.pages.create(
-#     **{
-#         "parent":{
-#             "database_id": os.environ["DATABASE_ID"]
-#         },
-#        "properties":{
-#           "Company":{
-#               "title": [{
-#                   "text":{
-#                       "content": job_company[i]
-#                   }
-#               }]
-#           },
-#           "Job Location":{
-#               "rich_text": [{
-#                   "text":{
-#                       "content": job_location[i]
-#                   }
-#               }]
-#           },
-#           "Job Description":{
-#               "rich_text": [{
-#                   "text":{
-#                       "content": job_description[i]
-#                   }
-#               }]
-#           },
-#           "Posting Date":{
-#               "rich_text": [{
-#                   "text":{
-#                       "content": job_posting_date[i]
-#                   }
-#               }]
-#           },
-#           "Application Link":{
-#               "rich_text": [{
-#                   "text":{
-#                       "content": job_app_link[i]
-#                   }
-#               }]
-#           }
-#        }
-#     }
-# )
-
-
 
 for i in range(0, len(job_company)):  # Writing to supabase table - POSTGRES. Primary key = Company + Job Location + Link
     data, count = Client.table('JobListings').insert({"Company": job_company[i], "Job Location": job_location[i], "Job Description":job_description[i], "Posting Date": job_posting_date[i], "Application Link": job_app_link[i]}).execute()
 
+
+writeToNotion(data)

@@ -12,7 +12,7 @@ import requests
 import os
 
 from supabase import create_client, Client
-from notionUtil import writeToNotion
+# from notionUtil import writeToNotion
 
 
 

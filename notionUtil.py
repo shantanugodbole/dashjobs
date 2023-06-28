@@ -7,7 +7,7 @@ notion = Client(auth = os.environ["CLIENT_SECRET"])
 
 def writeToNotion(data):
     for i in range(0, len(job_company)):  # Writing to notion Database - no primary keys
-    notion.pages.create(
+        notion.pages.create(
         **{
         "parent":{
             "database_id": os.environ["DATABASE_ID"]

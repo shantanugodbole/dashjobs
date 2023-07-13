@@ -59,4 +59,4 @@ for i in range(0, len(job_company)):  # Writing to supabase table - POSTGRES. Pr
     data, count = Client.table('JobListings').insert({"Company": job_company[i], "Job Location": job_location[i], "Job Description":job_description[i], "Posting Date": job_posting_date[i], "Application Link": job_app_link[i]}).execute()
 
 
-writeToNotion(data)
+# writeToNotion(data)

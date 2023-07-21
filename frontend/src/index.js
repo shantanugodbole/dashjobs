@@ -4,14 +4,14 @@ import './index.css';
 import App from './App';
 import JobListings from './screens/JobListings';
 import {
-  createBrowserRouter,
   RouterProvider,
+  createHashRouter
 } from "react-router-dom";
 
 
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App/>

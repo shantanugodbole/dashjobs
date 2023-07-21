@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import SignUp from './screens/signup';
+import SignUp from './screens/SignUp';
+import JobListings from './screens/JobListings';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 
 
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUp/>
+  },
+  {
+    path: '/joblistings',
+    element: <JobListings/>
   }
 ]
 )

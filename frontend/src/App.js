@@ -1,7 +1,6 @@
 import './App.css';
 import { userSignIn, userSignUp } from './utils/supabase';
 import {Link} from "react-router-dom";
-import signUp from './screens/signup';
 
 function App() {
   return (

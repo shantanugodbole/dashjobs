@@ -22,7 +22,7 @@ key = os.environ["SUPABASE_ID"]
 Client = create_client(url, key)
 
 
-target_url='https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=sde%20intern&geoId=103644278&start={}'
+target_url='https://www.linkedin.com/jobs/search/?keywords=sde%20intern&geoId=103644278&start={}'
 l =[]
 job_company = []
 job_location = []
